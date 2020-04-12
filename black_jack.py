@@ -2,7 +2,7 @@ import time
 import black_jack_helper as bjh
 
 '''
-GAME STARTS HERE
+WELCOME TO BLACK JACK
 '''
 
 print('Welcome to Black Jack!')
