@@ -1,10 +1,13 @@
+'''
+IMPORTS
+'''
+
 import time
 import black_jack_helper as bjh
 
 '''
-WELCOME TO BLACK JACK
+WELCOME MESSAGE
 '''
-
 print('Welcome to Black Jack!')
 time.sleep(1)
 print('5')
@@ -19,10 +22,14 @@ print('1')
 time.sleep(1)
 print('Let\'s go!')
 
-# create player's chips bank
-total_chips = 0
 
-while total_chips <= 0:
+'''
+CHIPS BANK
+'''
+
+pl_total_chips = 0
+
+while pl_total_chips <= 0:
 
     while True:
 
@@ -36,7 +43,7 @@ while total_chips <= 0:
 
     if total_chips_inp > 0:
 
-        total_chips += total_chips_inp
+        pl_total_chips += total_chips_inp
         time.sleep(2)
         break
 
@@ -45,13 +52,17 @@ while total_chips <= 0:
         print('This needs to be a number greater than 0')
         time.sleep(2)
 
-my_chips_bank = bjh.ChipsBank(total=total_chips)
+pl_chips_bank = bjh.ChipsBank(total=pl_total_chips)
 
 # keep a record of the initial amount of chips, this will be handy to work out the net gain/loss at the end
-initial_total_chips = total_chips
+pl_total_chips_initial = pl_total_chips
 
-print(my_chips_bank)
+print(pl_chips_bank)
 
+
+'''
+Game while loop begins
+'''
 while True:
 
     # Begin the game
@@ -63,7 +74,7 @@ while True:
     my_deck.shuffle()
 
     # Ask for bet
-    my_bet = bjh.ask_bet(my_chips_bank)
+    my_bet = bjh.ask_bet(pl_chips_bank)
 
     # Deal 2 cards to dealer, 2 cards to player
     pl_card_1 = my_deck.deal()
@@ -133,12 +144,12 @@ while True:
 
         print('BUST!!!\nEnd of this match')
         time.sleep(2)
-        my_chips_bank.lose_bet(my_bet)
+        pl_chips_bank.lose_bet(my_bet)
 
-        if bjh.continue_playing(my_chips_bank):
+        if bjh.continue_playing(pl_chips_bank):
             continue
         else:
-            print('End of the game. You are going home with: \n' + str(my_chips_bank.total))
+            print('End of the game. You are going home with: \n' + str(pl_chips_bank.total))
             break
 
     print('It is now the dealer\'s turn')
@@ -166,39 +177,39 @@ while True:
 
         print('The dealer has gone BUST! You win the game!')
 
-        my_chips_bank.win_bet(my_bet)
+        pl_chips_bank.win_bet(my_bet)
         time.sleep(2)
 
-        if bjh.continue_playing(my_chips_bank):
+        if bjh.continue_playing(pl_chips_bank):
             continue
         else:
-            print('End of the game. You are going home with: \n' + str(my_chips_bank.total))
+            print('End of the game. You are going home with: \n' + str(pl_chips_bank.total))
             break
 
     elif de_hand.value > pl_hand.value:
 
         print('The dealer has won. Dealer\'s hand is worth: \n' + str(de_hand.value) + '\nYour hand is worth: \n' + str(
             pl_hand.value))
-        my_chips_bank.lose_bet(my_bet)
+        pl_chips_bank.lose_bet(my_bet)
         time.sleep(2)
 
-        if bjh.continue_playing(my_chips_bank):
+        if bjh.continue_playing(pl_chips_bank):
             continue
         else:
-            print('End of the game. You are going home with: \n' + str(my_chips_bank.total))
+            print('End of the game. You are going home with: \n' + str(pl_chips_bank.total))
             break
 
     elif de_hand.value < pl_hand.value:
 
         print('You won. Dealer\'s hand is worth: \n' + str(de_hand.value) + '\nYour hand is worth: \n' + str(
             pl_hand.value))
-        my_chips_bank.win_bet(my_bet)
+        pl_chips_bank.win_bet(my_bet)
         time.sleep(2)
 
-        if bjh.continue_playing(my_chips_bank):
+        if bjh.continue_playing(pl_chips_bank):
             continue
         else:
-            print('End of the game. You are going home with: \n' + str(my_chips_bank.total))
+            print('End of the game. You are going home with: \n' + str(pl_chips_bank.total))
             break
 
     elif de_hand.value == pl_hand.value:
@@ -207,8 +218,8 @@ while True:
             pl_hand.value))
         time.sleep(2)
 
-        if bjh.continue_playing(my_chips_bank):
+        if bjh.continue_playing(pl_chips_bank):
             continue
         else:
-            print('End of the game. You are going home with: \n' + str(my_chips_bank.total))
+            print('End of the game. You are going home with: \n' + str(pl_chips_bank.total))
             break
